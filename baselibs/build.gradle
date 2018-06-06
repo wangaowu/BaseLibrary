@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 22
+    }
+}
+dependencies {
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api project(':requestlibs')
+}
