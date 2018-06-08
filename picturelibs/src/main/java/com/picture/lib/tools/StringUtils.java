@@ -32,7 +32,7 @@ public class StringUtils {
 
     public static void tempTextFont(TextView tv, int mimeType) {
         String text = tv.getText().toString().trim();
-        String str = mimeType == PictureMimeType.ofAudio() ?
+        String str = mimeType == PictureMimeType.TYPE_AUDIO() ?
                 tv.getContext().getString(R.string.picture_empty_audio_title)
                 : tv.getContext().getString(R.string.picture_empty_title);
         String sumText = str + text;

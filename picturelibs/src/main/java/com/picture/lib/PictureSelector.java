@@ -16,6 +16,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * author：luck
  * project：PictureSelector
@@ -49,7 +51,7 @@ public final class PictureSelector {
      * @param activity
      * @return PictureSelector instance.
      */
-    public static PictureSelector create(Activity activity) {
+    public static PictureSelector use(Activity activity) {
         return new PictureSelector(activity);
     }
 
@@ -59,7 +61,7 @@ public final class PictureSelector {
      * @param fragment
      * @return PictureSelector instance.
      */
-    public static PictureSelector create(Fragment fragment) {
+    public static PictureSelector use(Fragment fragment) {
         return new PictureSelector(fragment);
     }
 
@@ -86,16 +88,17 @@ public final class PictureSelector {
      * @return
      */
     public PictureSelectionModel themeStyle(int themeStyle) {
-        return new PictureSelectionModel(this, PictureMimeType.ofImage()).theme(themeStyle);
+        return new PictureSelectionModel(this, PictureMimeType.TYPE_IMAGE()).theme(themeStyle);
     }
 
     /**
+     * @param resultCode
      * @param data
      * @return Selector Multiple LocalMedia
      */
-    public static List<LocalMedia> obtainMultipleResult(Intent data) {
+    public static List<LocalMedia> obtainMultipleResult(int resultCode, Intent data) {
         List<LocalMedia> result = new ArrayList<>();
-        if (data != null) {
+        if (data != null && resultCode == RESULT_OK) {
             result = (List<LocalMedia>) data.getSerializableExtra(PictureConfig.EXTRA_RESULT_SELECTION);
             if (result == null) {
                 result = new ArrayList<>();

@@ -231,7 +231,7 @@ public class Base64 {
 	 */
 	public final static String encodeToString(byte[] sArr, boolean lineSep)
 	{
-		// Reuse char[] since we can't create a String incrementally anyway and StringBuffer/Builder would be slower.
+		// Reuse char[] since we can't use a String incrementally anyway and StringBuffer/Builder would be slower.
 		return new String(encodeToChar(sArr, lineSep));
 	}
 

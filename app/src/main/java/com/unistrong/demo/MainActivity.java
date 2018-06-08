@@ -76,22 +76,22 @@ public class MainActivity extends BaseActivity {
 //        });
 
         //选择照片
-        PictureSelector.create(this).openGallery(PictureMimeType.ofImage())
+        PictureSelector.use(this).openGallery(PictureMimeType.TYPE_IMAGE())
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case PictureConfig.CHOOSE_REQUEST:
-                    // 图片、视频、音频选择结果回调
-                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+        switch (requestCode) {
+            case PictureConfig.CHOOSE_REQUEST:
+                // 图片、视频、音频选择结果回调
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(resultCode, data);
+                if (!selectList.isEmpty()) {
                     String imagePath = selectList.get(0).getPath();
                     Glide.with(MainActivity.this).load(imagePath).into(iv);
-                    break;
-            }
+                }
+                break;
         }
     }
 

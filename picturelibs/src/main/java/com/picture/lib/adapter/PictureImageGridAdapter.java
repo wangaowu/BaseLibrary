@@ -168,7 +168,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             boolean gif = PictureMimeType.isGif(pictureType);
 
             contentHolder.tv_isGif.setVisibility(gif ? View.VISIBLE : View.GONE);
-            if (mimeType == PictureMimeType.ofAudio()) {
+            if (mimeType == PictureMimeType.TYPE_AUDIO()) {
                 contentHolder.tv_duration.setVisibility(View.VISIBLE);
                 Drawable drawable = ContextCompat.getDrawable(context, R.drawable.picture_audio);
                 StringUtils.modifyTextViewDrawable(contentHolder.tv_duration, drawable, 0);
@@ -182,7 +182,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             contentHolder.tv_long_chart.setVisibility(eqLongImg ? View.VISIBLE : View.GONE);
             long duration = image.getDuration();
             contentHolder.tv_duration.setText(DateUtils.timeParse(duration));
-            if (mimeType == PictureMimeType.ofAudio()) {
+            if (mimeType == PictureMimeType.TYPE_AUDIO()) {
                 contentHolder.iv_picture.setImageResource(R.drawable.audio_placeholder);
             } else {
                 RequestOptions options = new RequestOptions();
@@ -252,7 +252,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(itemView);
             headerView = itemView;
             tv_title_camera = (TextView) itemView.findViewById(R.id.tv_title_camera);
-            String title = mimeType == PictureMimeType.ofAudio() ?
+            String title = mimeType == PictureMimeType.TYPE_AUDIO() ?
                     context.getString(R.string.picture_tape)
                     : context.getString(R.string.picture_take_picture);
             tv_title_camera.setText(title);

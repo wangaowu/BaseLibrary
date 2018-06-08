@@ -20,19 +20,19 @@ import java.io.File;
  */
 
 public final class PictureMimeType {
-    public static int ofAll() {
+    public static int TYPE_ALL() {
         return PictureConfig.TYPE_ALL;
     }
 
-    public static int ofImage() {
+    public static int TYPE_IMAGE() {
         return PictureConfig.TYPE_IMAGE;
     }
 
-    public static int ofVideo() {
+    public static int TYPE_VIDEO() {
         return PictureConfig.TYPE_VIDEO;
     }
 
-    public static int ofAudio() {
+    public static int TYPE_AUDIO() {
         return PictureConfig.TYPE_AUDIO;
     }
 

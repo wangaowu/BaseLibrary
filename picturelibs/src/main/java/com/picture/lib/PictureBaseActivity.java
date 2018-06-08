@@ -390,7 +390,7 @@ public class PictureBaseActivity extends FragmentActivity {
         if (folders.size() == 0) {
             // 没有相册 先创建一个最近相册出来
             LocalMediaFolder newFolder = new LocalMediaFolder();
-            String folderName = config.mimeType == PictureMimeType.ofAudio() ?
+            String folderName = config.mimeType == PictureMimeType.TYPE_AUDIO() ?
                     getString(R.string.picture_all_audio) : getString(R.string.picture_camera_roll);
             newFolder.setName(folderName);
             newFolder.setPath("");
@@ -526,7 +526,7 @@ public class PictureBaseActivity extends FragmentActivity {
      */
     protected String getAudioPath(Intent data) {
         boolean compare_SDK_19 = Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT;
-        if (data != null && config.mimeType == PictureMimeType.ofAudio()) {
+        if (data != null && config.mimeType == PictureMimeType.TYPE_AUDIO()) {
             try {
                 Uri uri = data.getData();
                 final String audioPath;

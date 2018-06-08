@@ -185,7 +185,7 @@ public class LocalMediaLoader {
                                         imageFolders.add(0, allImageFolder);
                                         allImageFolder.setFirstImagePath
                                                 (latelyImages.get(0).getPath());
-                                        String title = type == PictureMimeType.ofAudio() ?
+                                        String title = type == PictureMimeType.TYPE_AUDIO() ?
                                                 activity.getString(R.string.picture_all_audio)
                                                 : activity.getString(R.string.picture_camera_roll);
                                         allImageFolder.setName(title);

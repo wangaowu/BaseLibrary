@@ -168,7 +168,7 @@ public class RxPermissions {
         List<Observable<Permission>> list = new ArrayList<>(permissions.length);
         List<String> unrequestedPermissions = new ArrayList<>();
 
-        // In case of multiple permissions, we create an Observable for each of them.
+        // In case of multiple permissions, we use an Observable for each of them.
         // At the end, the observables are combined to have a unique response.
         for (String permission : permissions) {
             mRxPermissionsFragment.log("Requesting permission " + permission);

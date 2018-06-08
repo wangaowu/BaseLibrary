@@ -201,12 +201,12 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         id_ll_ok = (LinearLayout) findViewById(R.id.id_ll_ok);
         tv_empty = (TextView) findViewById(R.id.tv_empty);
         isNumComplete(numComplete);
-        if (config.mimeType == PictureMimeType.ofAll()) {
+        if (config.mimeType == PictureMimeType.TYPE_ALL()) {
             popupWindow = new PhotoPopupWindow(this);
             popupWindow.setOnItemClickListener(this);
         }
         picture_id_preview.setOnClickListener(this);
-        if (config.mimeType == PictureMimeType.ofAudio()) {
+        if (config.mimeType == PictureMimeType.TYPE_AUDIO()) {
             picture_id_preview.setVisibility(View.GONE);
             audioH = ScreenUtils.getScreenHeight(mContext)
                     + ScreenUtils.getStatusBarHeight(mContext);
@@ -218,7 +218,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         picture_right.setOnClickListener(this);
         id_ll_ok.setOnClickListener(this);
         picture_title.setOnClickListener(this);
-        String title = config.mimeType == PictureMimeType.ofAudio() ?
+        String title = config.mimeType == PictureMimeType.TYPE_AUDIO() ?
                 getString(R.string.picture_all_audio)
                 : getString(R.string.picture_camera_roll);
         picture_title.setText(title);
@@ -257,7 +257,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     public void onComplete() {
                     }
                 });
-        tv_empty.setText(config.mimeType == PictureMimeType.ofAudio() ?
+        tv_empty.setText(config.mimeType == PictureMimeType.TYPE_AUDIO() ?
                 getString(R.string.picture_audio_empty)
                 : getString(R.string.picture_empty));
         StringUtils.tempTextFont(tv_empty, config.mimeType);
@@ -837,7 +837,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         // 如果选择的视频没有预览功能
         String pictureType = selectImages.size() > 0
                 ? selectImages.get(0).getPictureType() : "";
-        if (config.mimeType == PictureMimeType.ofAudio()) {
+        if (config.mimeType == PictureMimeType.TYPE_AUDIO()) {
             picture_id_preview.setVisibility(View.GONE);
         } else {
             boolean isVideo = PictureMimeType.isVideo(pictureType);
@@ -931,14 +931,14 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     handlerResult(medias);
                     break;
                 case PictureConfig.REQUEST_CAMERA:
-                    if (config.mimeType == PictureMimeType.ofAudio()) {
+                    if (config.mimeType == PictureMimeType.TYPE_AUDIO()) {
                         cameraPath = getAudioPath(data);
                     }
                     // on take photo success
                     final File file = new File(cameraPath);
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
                     String toType = PictureMimeType.fileToType(file);
-                    if (config.mimeType != PictureMimeType.ofAudio()) {
+                    if (config.mimeType != PictureMimeType.TYPE_AUDIO()) {
                         int degree = PictureFileUtils.readPictureDegree(file.getAbsolutePath());
                         rotateImage(degree, file);
                     }
@@ -949,7 +949,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     boolean eqVideo = toType.startsWith(PictureConfig.VIDEO);
                     int duration = eqVideo ? PictureMimeType.getLocalVideoDuration(cameraPath) : 0;
                     String pictureType = "";
-                    if (config.mimeType == PictureMimeType.ofAudio()) {
+                    if (config.mimeType == PictureMimeType.TYPE_AUDIO()) {
                         pictureType = "audio/mpeg";
                         duration = PictureMimeType.getLocalVideoDuration(cameraPath);
                     } else {
@@ -1013,7 +1013,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                                 ? View.INVISIBLE : View.VISIBLE);
                     }
 
-                    if (config.mimeType != PictureMimeType.ofAudio()) {
+                    if (config.mimeType != PictureMimeType.TYPE_AUDIO()) {
                         int lastImageId = getLastImageId(eqVideo);
                         if (lastImageId != -1) {
                             removeImage(lastImageId, eqVideo);
