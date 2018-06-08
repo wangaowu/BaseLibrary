@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.view.widget;
+package com.ucrop.view.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.yalantis.ucrop.R;
+import com.picture.lib.R;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).

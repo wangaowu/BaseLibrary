@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.callback;
+package com.ucrop.callback;
 
 import android.graphics.RectF;
 

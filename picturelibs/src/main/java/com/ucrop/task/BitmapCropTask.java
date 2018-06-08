@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.task;
+package com.ucrop.task;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,13 +11,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.yalantis.ucrop.callback.BitmapCropCallback;
-import com.yalantis.ucrop.model.CropParameters;
-import com.yalantis.ucrop.model.ExifInfo;
-import com.yalantis.ucrop.model.ImageState;
-import com.yalantis.ucrop.util.BitmapLoadUtils;
-import com.yalantis.ucrop.util.FileUtils;
-import com.yalantis.ucrop.util.ImageHeaderParser;
+import com.ucrop.callback.BitmapCropCallback;
+import com.ucrop.model.CropParameters;
+import com.ucrop.model.ExifInfo;
+import com.ucrop.model.ImageState;
+import com.ucrop.util.BitmapLoadUtils;
+import com.ucrop.util.FileUtils;
+import com.ucrop.util.ImageHeaderParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

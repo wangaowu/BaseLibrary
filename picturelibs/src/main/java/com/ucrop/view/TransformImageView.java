@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.view;
+package com.ucrop.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,11 +13,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.yalantis.ucrop.callback.BitmapLoadCallback;
-import com.yalantis.ucrop.model.ExifInfo;
-import com.yalantis.ucrop.util.BitmapLoadUtils;
-import com.yalantis.ucrop.util.FastBitmapDrawable;
-import com.yalantis.ucrop.util.RectUtils;
+import com.ucrop.callback.BitmapLoadCallback;
+import com.ucrop.model.ExifInfo;
+import com.ucrop.util.BitmapLoadUtils;
+import com.ucrop.util.FastBitmapDrawable;
+import com.ucrop.util.RectUtils;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).

@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.callback;
+package com.ucrop.callback;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

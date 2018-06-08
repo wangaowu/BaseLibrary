@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.yalantis.ucrop;
+package com.ucrop;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +27,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.yalantis.ucrop.model.CutInfo;
+import com.picture.lib.R;
+import com.ucrop.model.CutInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * author：luck
  * project：PictureSelector
- * package：com.luck.picture.adapter
+ * package：com.picture.adapter
  * email：893855882@qq.com
  * data：16/12/31
  */

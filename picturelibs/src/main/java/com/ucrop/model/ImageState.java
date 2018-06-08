@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.model;
+package com.ucrop.model;
 
 import android.graphics.RectF;
 

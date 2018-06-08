@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.view;
+package com.ucrop.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,9 +15,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.yalantis.ucrop.R;
-import com.yalantis.ucrop.callback.OverlayViewChangeListener;
-import com.yalantis.ucrop.util.RectUtils;
+import com.picture.lib.R;
+import com.ucrop.callback.OverlayViewChangeListener;
+import com.ucrop.util.RectUtils;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).

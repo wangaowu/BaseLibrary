@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.util;
+package com.ucrop.util;
 
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;

@@ -1,4 +1,4 @@
-package com.yalantis.ucrop;
+package com.ucrop;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -33,16 +33,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.yalantis.ucrop.callback.BitmapCropCallback;
-import com.yalantis.ucrop.model.AspectRatio;
-import com.yalantis.ucrop.util.SelectedStateListDrawable;
-import com.yalantis.ucrop.view.CropImageView;
-import com.yalantis.ucrop.view.GestureCropImageView;
-import com.yalantis.ucrop.view.OverlayView;
-import com.yalantis.ucrop.view.TransformImageView;
-import com.yalantis.ucrop.view.UCropView;
-import com.yalantis.ucrop.view.widget.AspectRatioTextView;
-import com.yalantis.ucrop.view.widget.HorizontalProgressWheelView;
+import com.picture.lib.R;
+import com.ucrop.callback.BitmapCropCallback;
+import com.ucrop.model.AspectRatio;
+import com.ucrop.util.SelectedStateListDrawable;
+import com.ucrop.view.CropImageView;
+import com.ucrop.view.GestureCropImageView;
+import com.ucrop.view.OverlayView;
+import com.ucrop.view.TransformImageView;
+import com.ucrop.view.UCropView;
+import com.ucrop.view.widget.AspectRatioTextView;
+import com.ucrop.view.widget.HorizontalProgressWheelView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -209,7 +210,7 @@ public class UCropActivity extends AppCompatActivity {
     }
 
     /**
-     * This method extracts {@link com.yalantis.ucrop.UCrop.Options #optionsBundle} from incoming intent
+     * This method extracts {@link com.ucrop.UCrop.Options #optionsBundle} from incoming intent
      * and setups Activity, {@link OverlayView} and {@link CropImageView} properly.
      */
     @SuppressWarnings("deprecation")

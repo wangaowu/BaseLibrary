@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.util;
+package com.ucrop.util;
 
 public final class CubicEasing {
 

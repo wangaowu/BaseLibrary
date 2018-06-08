@@ -9,7 +9,9 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,7 +27,9 @@ import java.util.List;
 public class FileUtils {
     public final String TAG = "LAZY";
     public final static String FILE_EXTENSION_SEPARATOR = ".";
-    /** URI类型：file */
+    /**
+     * URI类型：file
+     */
     public static final String URI_TYPE_FILE = "file";
 
 
@@ -39,10 +43,10 @@ public class FileUtils {
      *
      * @param filePath    路径
      * @param charsetName The name of a supported {@link
-     * java.nio.charset.Charset </code>charset<code>}
+     *                    java.nio.charset.Charset </code>charset<code>}
      * @return if file not exist, return null, else return content of file
      * @throws RuntimeException if an error occurs while operator
-     * BufferedReader
+     *                          BufferedReader
      */
     public static StringBuilder readFile(String filePath, String charsetName) {
 
@@ -68,7 +72,7 @@ public class FileUtils {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(reader);
+            closeStream(reader);
         }
     }
 
@@ -76,16 +80,16 @@ public class FileUtils {
     /**
      * write file
      *
-     * @param filePath    路径
+     * @param filePath 路径
      * @param content  上下文
-     * @param append is append, if true, write to the end of file, else clear
-     * content of file and write into it
+     * @param append   is append, if true, write to the end of file, else clear
+     *                 content of file and write into it
      * @return return false if content is empty, true otherwise
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
     public static boolean writeFile(String filePath, String content, boolean append) {
 
-        if (StringUtils.isEmpty(content)) {
+        if (TextUtils.isEmpty(content)) {
             return false;
         }
 
@@ -98,7 +102,14 @@ public class FileUtils {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(fileWriter);
+            closeStream(fileWriter);
+        }
+    }
+
+    private static void closeStream(Closeable stream) {
+        try {
+            stream.close();
+        } catch (Exception e) {
         }
     }
 
@@ -106,16 +117,16 @@ public class FileUtils {
     /**
      * write file
      *
-     * @param filePath  路径
-     * @param contentList  集合
-     * @param append is append, if true, write to the end of file, else clear
-     * content of file and write into it
+     * @param filePath    路径
+     * @param contentList 集合
+     * @param append      is append, if true, write to the end of file, else clear
+     *                    content of file and write into it
      * @return return false if contentList is empty, true otherwise
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
     public static boolean writeFile(String filePath, List<String> contentList, boolean append) {
 
-        if (contentList.size()==0||null==contentList) {
+        if (contentList.size() == 0 || null == contentList) {
             return false;
         }
 
@@ -134,16 +145,17 @@ public class FileUtils {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(fileWriter);
+            closeStream(fileWriter);
         }
     }
 
 
     /**
      * write file, the string will be written to the begin of the file
-     * @param filePath    地址
+     *
+     * @param filePath 地址
      * @param content  上下文
-     * @return  是否写入成功
+     * @return 是否写入成功
      */
     public static boolean writeFile(String filePath, String content) {
 
@@ -153,9 +165,10 @@ public class FileUtils {
 
     /**
      * write file, the string list will be written to the begin of the file
+     *
      * @param filePath    地址
-     * @param contentList    集合
-     * @return  是否写入成功
+     * @param contentList 集合
+     * @return 是否写入成功
      */
     public static boolean writeFile(String filePath, List<String> contentList) {
         return writeFile(filePath, contentList, false);
@@ -166,8 +179,8 @@ public class FileUtils {
     /**
      * write file, the bytes will be written to the begin of the file
      *
-     * @param filePath   路径
-     * @param stream  输入流
+     * @param filePath 路径
+     * @param stream   输入流
      * @return 返回是否写入成功
      */
     public static boolean writeFile(String filePath, InputStream stream) {
@@ -180,10 +193,10 @@ public class FileUtils {
      * write file
      *
      * @param filePath 路径
-     * @param stream the input stream
-     * @param append if <code>true</code>, then bytes will be written to the
-     * end
-     * of the file rather than the beginning
+     * @param stream   the input stream
+     * @param append   if <code>true</code>, then bytes will be written to the
+     *                 end
+     *                 of the file rather than the beginning
      * @return return true
      * FileOutputStream
      */
@@ -197,7 +210,7 @@ public class FileUtils {
     /**
      * write file, the bytes will be written to the begin of the file
      *
-     * @param file    文件对象
+     * @param file   文件对象
      * @param stream 输入流
      * @return 返回是否写入成功
      */
@@ -210,14 +223,14 @@ public class FileUtils {
     /**
      * write file
      *
-     * @param file the file to be opened for writing.
+     * @param file   the file to be opened for writing.
      * @param stream the input stream
      * @param append if <code>true</code>, then bytes will be written to the
-     * end
-     * of the file rather than the beginning
+     *               end
+     *               of the file rather than the beginning
      * @return return true
      * @throws RuntimeException if an error occurs while operator
-     * FileOutputStream
+     *                          FileOutputStream
      */
     public static boolean writeFile(File file, InputStream stream, boolean append) {
         OutputStream o = null;
@@ -236,16 +249,17 @@ public class FileUtils {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(o);
-            IOUtils.close(stream);
+            closeStream(o);
+            closeStream(stream);
         }
     }
 
 
     /**
      * move file
-     * @param sourceFilePath    资源路径
-     * @param destFilePath  删除的路径
+     *
+     * @param sourceFilePath 资源路径
+     * @param destFilePath   删除的路径
      */
     public static void moveFile(String sourceFilePath, String destFilePath) {
 
@@ -260,8 +274,9 @@ public class FileUtils {
 
     /**
      * move file
-     * @param srcFile    文件对象
-     * @param destFile  对象
+     *
+     * @param srcFile  文件对象
+     * @param destFile 对象
      */
     public static void moveFile(File srcFile, File destFile) {
 
@@ -276,11 +291,11 @@ public class FileUtils {
     /**
      * copy file
      *
-     * @param sourceFilePath    资源路径
-     * @param destFilePath  删除的文件
+     * @param sourceFilePath 资源路径
+     * @param destFilePath   删除的文件
+     * @return 返回是否成功
      * @throws RuntimeException if an error occurs while operator
-     * FileOutputStream
-     * @return  返回是否成功
+     *                          FileOutputStream
      */
     public static boolean copyFile(String sourceFilePath, String destFilePath) {
 
@@ -299,10 +314,10 @@ public class FileUtils {
      *
      * @param filePath    路径
      * @param charsetName The name of a supported {@link
-     * java.nio.charset.Charset </code>charset<code>}
+     *                    java.nio.charset.Charset </code>charset<code>}
      * @return if file not exist, return null, else return content of file
      * @throws RuntimeException if an error occurs while operator
-     * BufferedReader
+     *                          BufferedReader
      */
     public static List<String> readFileToList(String filePath, String charsetName) {
 
@@ -325,20 +340,19 @@ public class FileUtils {
         } catch (IOException e) {
             throw new RuntimeException("IOException occurred. ", e);
         } finally {
-            IOUtils.close(reader);
+            closeStream(reader);
         }
     }
 
 
     /**
-     *
-     * @param filePath  文件的路径
+     * @param filePath 文件的路径
      * @return 返回文件的信息
      */
     public static String getFileNameWithoutExtension(String filePath) {
 
 
-        if (StringUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -353,13 +367,13 @@ public class FileUtils {
             return filePath.substring(filePosi + 1);
         }
         return (filePosi < extenPosi ? filePath.substring(filePosi + 1,
-                extenPosi)           : filePath.substring(filePosi + 1));
+                extenPosi) : filePath.substring(filePosi + 1));
     }
 
 
     /**
      * get file name from path, include suffix
-     *
+     * <p>
      * <pre>
      *      getFileName(null)               =   null
      *      getFileName("")                 =   ""
@@ -375,12 +389,12 @@ public class FileUtils {
      *      getFileName("/home/admin/a.txt/b.mp3")  =   "b.mp3"
      * </pre>
      *
-     * @param filePath    路径
+     * @param filePath 路径
      * @return file name from path, include suffix
      */
     public static String getFileName(String filePath) {
 
-        if (StringUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -391,7 +405,7 @@ public class FileUtils {
 
     /**
      * get folder name from path
-     *
+     * <p>
      * <pre>
      *      getFolderName(null)               =   null
      *      getFolderName("")                 =   ""
@@ -407,13 +421,14 @@ public class FileUtils {
      *      getFolderName("/home/admin")      =   "/home"
      *      getFolderName("/home/admin/a.txt/b.mp3")  =   "/home/admin/a.txt"
      * </pre>
-     * @param filePath    路径
-     * @return  file name from path, include suffix
+     *
+     * @param filePath 路径
+     * @return file name from path, include suffix
      */
     public static String getFolderName(String filePath) {
 
 
-        if (StringUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -424,7 +439,7 @@ public class FileUtils {
 
     /**
      * get suffix of file from path
-     *
+     * <p>
      * <pre>
      *      getFileExtension(null)               =   ""
      *      getFileExtension("")                 =   ""
@@ -440,12 +455,13 @@ public class FileUtils {
      *      getFileExtension("/home/admin/a.txt/b")  =   ""
      *      getFileExtension("/home/admin/a.txt/b.mp3")  =   "mp3"
      * </pre>
-     * @param filePath    路径
-     * @return  信息
+     *
+     * @param filePath 路径
+     * @return 信息
      */
     public static String getFileExtension(String filePath) {
 
-        if (StringUtils.isBlank(filePath)) {
+        if (isBlank(filePath)) {
             return filePath;
         }
 
@@ -459,28 +475,26 @@ public class FileUtils {
 
 
     /**
-     *
      * @param filePath 路径
      * @return 是否创建成功
      */
     public static boolean makeDirs(String filePath) {
 
         String folderName = getFolderName(filePath);
-        if (StringUtils.isEmpty(folderName)) {
+        if (TextUtils.isEmpty(folderName)) {
             return false;
         }
 
         File folder = new File(folderName);
         return (folder.exists() && folder.isDirectory())
-               ? true
-               : folder.mkdirs();
+                ? true
+                : folder.mkdirs();
     }
 
 
     /**
-     *
      * @param filePath 路径
-     * @return  是否创建成功
+     * @return 是否创建成功
      */
     public static boolean makeFolders(String filePath) {
         return makeDirs(filePath);
@@ -489,12 +503,11 @@ public class FileUtils {
 
 
     /**
-     *
      * @param filePath 路径
-     * @return  是否存在这个文件
+     * @return 是否存在这个文件
      */
     public static boolean isFileExist(String filePath) {
-        if (StringUtils.isBlank(filePath)) {
+        if (isBlank(filePath)) {
             return false;
         }
 
@@ -503,15 +516,19 @@ public class FileUtils {
 
     }
 
+    private static boolean isBlank(String path) {
+        File file = new File(path);
+        return file.isDirectory() || !file.exists();
+    }
+
 
     /**
-     *
      * @param directoryPath 路径
-     * @return  是否有文件夹
+     * @return 是否有文件夹
      */
     public static boolean isFolderExist(String directoryPath) {
 
-        if (StringUtils.isBlank(directoryPath)) {
+        if (isBlank(directoryPath)) {
             return false;
         }
 
@@ -521,13 +538,12 @@ public class FileUtils {
 
 
     /**
-     *
-     * @param path  路径
-     * @return  是否删除成功
+     * @param path 路径
+     * @return 是否删除成功
      */
     public static boolean deleteFile(String path) {
 
-        if (StringUtils.isBlank(path)) {
+        if (isBlank(path)) {
             return true;
         }
 
@@ -544,8 +560,7 @@ public class FileUtils {
         for (File f : file.listFiles()) {
             if (f.isFile()) {
                 f.delete();
-            }
-            else if (f.isDirectory()) {
+            } else if (f.isDirectory()) {
                 deleteFile(f.getAbsolutePath());
             }
         }
@@ -554,13 +569,12 @@ public class FileUtils {
 
 
     /**
-     *
-     * @param path  路径
-     * @return  返回文件大小
+     * @param path 路径
+     * @return 返回文件大小
      */
     public static long getFileSize(String path) {
 
-        if (StringUtils.isBlank(path)) {
+        if (isBlank(path)) {
             return -1;
         }
 
@@ -572,7 +586,7 @@ public class FileUtils {
     /**
      * 保存多媒体数据为文件.
      *
-     * @param data 多媒体数据
+     * @param data     多媒体数据
      * @param fileName 保存文件名
      * @return 保存成功或失败
      */
@@ -650,7 +664,7 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
 
 
@@ -658,13 +672,12 @@ public class FileUtils {
      * 读取文本文件内容，以行的形式读取
      *
      * @param filePathAndName 带有完整绝对路径的文件名
-     * @param encoding 文本文件打开的编码方式 例如 GBK,UTF-8
-     * @param sep 分隔符 例如：#，默认为\n;
-     * @param bufLen 设置缓冲区大小
+     * @param encoding        文本文件打开的编码方式 例如 GBK,UTF-8
+     * @param sep             分隔符 例如：#，默认为\n;
+     * @param bufLen          设置缓冲区大小
      * @return String 返回文本文件的内容
      */
-    public static String readFileContent(String filePathAndName, String encoding, String sep, int bufLen)
-           {
+    public static String readFileContent(String filePathAndName, String encoding, String sep, int bufLen) {
         if (filePathAndName == null || filePathAndName.equals("")) {
             return "";
         }
@@ -682,8 +695,7 @@ public class FileUtils {
             fs = new FileInputStream(filePathAndName);
             if (encoding == null || encoding.trim().equals("")) {
                 isr = new InputStreamReader(fs);
-            }
-            else {
+            } else {
                 isr = new InputStreamReader(fs, encoding.trim());
             }
             br = new BufferedReader(isr, bufLen);
@@ -708,8 +720,8 @@ public class FileUtils {
     /**
      * 把Assets里的文件拷贝到sd卡上
      *
-     * @param assetManager AssetManager
-     * @param fileName Asset文件名
+     * @param assetManager    AssetManager
+     * @param fileName        Asset文件名
      * @param destinationPath 完整目标路径
      * @return 拷贝成功
      */
@@ -739,8 +751,8 @@ public class FileUtils {
     /**
      * 调用系统方式打开文件.
      *
-     * @param context    上下文
-     * @param file 文件
+     * @param context 上下文
+     * @param file    文件
      */
     public static void openFile(Context context, File file) {
 
@@ -749,10 +761,10 @@ public class FileUtils {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setDataAndType(Uri.fromFile(file), MimeTypeMap.getSingleton()
-                                                                 .getMimeTypeFromExtension(
-                                                                         MimeTypeMap
-                                                                                 .getFileExtensionFromUrl(
-                                                                                         file.getPath())));
+                    .getMimeTypeFromExtension(
+                            MimeTypeMap
+                                    .getFileExtensionFromUrl(
+                                            file.getPath())));
             context.startActivity(intent);
         } catch (Exception ex) {
             Toast.makeText(context, "打开失败.", Toast.LENGTH_SHORT).show();
@@ -764,8 +776,8 @@ public class FileUtils {
      * 根据文件路径，检查文件是否不大于指定大小
      *
      * @param filepath 文件路径
-     * @param maxSize    最大
-     * @return  是否
+     * @param maxSize  最大
+     * @return 是否
      */
     public static boolean checkFileSize(String filepath, int maxSize) {
 
@@ -775,17 +787,15 @@ public class FileUtils {
         }
         if (file.length() <= maxSize * 1024) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
 
     /**
-     *
-     * @param context  上下文
-     * @param file  文件对象
+     * @param context 上下文
+     * @param file    文件对象
      */
     public static void openMedia(Context context, File file) {
 
@@ -793,8 +803,7 @@ public class FileUtils {
                 file.getName().endsWith(".jpg") ||
                 file.getName().endsWith(".jpeg")) {
             viewPhoto(context, file);
-        }
-        else {
+        } else {
             openFile(context, file);
         }
     }
@@ -803,8 +812,8 @@ public class FileUtils {
     /**
      * 打开多媒体文件.
      *
-     * @param context    上下文
-     * @param file 多媒体文件
+     * @param context 上下文
+     * @param file    多媒体文件
      */
     public static void viewPhoto(Context context, String file) {
 
@@ -814,8 +823,9 @@ public class FileUtils {
 
     /**
      * 打开照片
-     * @param context    上下文
-     * @param file  文件对象
+     *
+     * @param context 上下文
+     * @param file    文件对象
      */
     public static void viewPhoto(Context context, File file) {
 
@@ -833,9 +843,10 @@ public class FileUtils {
 
     /**
      * 将字符串以UTF-8编码保存到文件中
-     * @param str    保存的字符串
+     *
+     * @param str      保存的字符串
      * @param fileName 文件的名字
-     * @return  是否保存成功
+     * @return 是否保存成功
      */
     public static boolean saveStrToFile(String str, String fileName) {
 
@@ -845,10 +856,11 @@ public class FileUtils {
 
     /**
      * 将字符串以charsetName编码保存到文件中
-     * @param str    保存的字符串
-     * @param fileName  文件的名字
-     * @param charsetName  字符串编码
-     * @return  是否保存成功
+     *
+     * @param str         保存的字符串
+     * @param fileName    文件的名字
+     * @param charsetName 字符串编码
+     * @return 是否保存成功
      */
     public static boolean saveStrToFile(String str, String fileName, String charsetName) {
 
@@ -866,8 +878,7 @@ public class FileUtils {
             byte[] b = null;
             if (charsetName != null && !"".equals(charsetName)) {
                 b = str.getBytes(charsetName);
-            }
-            else {
+            } else {
                 b = str.getBytes();
             }
 
@@ -891,9 +902,10 @@ public class FileUtils {
 
     /**
      * 将content://形式的uri转为实际文件路径
-     * @param context    上下文
-     * @param uri  地址
-     * @return  uri转为实际文件路径
+     *
+     * @param context 上下文
+     * @param uri     地址
+     * @return uri转为实际文件路径
      */
     public static String uriToPath(Context context, Uri uri) {
 
@@ -903,7 +915,7 @@ public class FileUtils {
                 return uri.getPath();
             }
             cursor = context.getContentResolver()
-                            .query(uri, null, null, null, null);
+                    .query(uri, null, null, null, null);
             if (cursor.moveToFirst()) {
                 return cursor.getString(cursor.getColumnIndex(
                         MediaStore.Images.Media.DATA)); //图片文件路径
@@ -922,8 +934,8 @@ public class FileUtils {
     /**
      * 打开多媒体文件.
      *
-     * @param context    上下文
-     * @param file 多媒体文件
+     * @param context 上下文
+     * @param file    多媒体文件
      */
     public static void playSound(Context context, String file) {
 
@@ -934,8 +946,8 @@ public class FileUtils {
     /**
      * 打开多媒体文件.
      *
-     * @param context    上下文
-     * @param file 多媒体文件
+     * @param context 上下文
+     * @param file    多媒体文件
      */
     public static void playSound(Context context, File file) {
 
@@ -955,8 +967,8 @@ public class FileUtils {
     /**
      * 打开视频文件.
      *
-     * @param context    上下文
-     * @param file 视频文件
+     * @param context 上下文
+     * @param file    视频文件
      */
     public static void playVideo(Context context, String file) {
 
@@ -966,8 +978,9 @@ public class FileUtils {
 
     /**
      * 打开视频文件.
-     * @param context    上下文
-     * @param file 视频文件
+     *
+     * @param context 上下文
+     * @param file    视频文件
      */
     public static void playVideo(Context context, File file) {
         try {
@@ -985,8 +998,8 @@ public class FileUtils {
     /**
      * 文件重命名
      *
-     * @param oldPath    旧的文件名字
-     * @param newPath    新的文件名字
+     * @param oldPath 旧的文件名字
+     * @param newPath 新的文件名字
      */
     public static void renameFile(String oldPath, String newPath) {
 

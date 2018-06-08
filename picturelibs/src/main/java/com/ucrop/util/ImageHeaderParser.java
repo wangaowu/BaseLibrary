@@ -28,7 +28,7 @@
  * Adapted for the uCrop library.
  */
 
-package com.yalantis.ucrop.util;
+package com.ucrop.util;
 
 import android.media.ExifInterface;
 import android.text.TextUtils;

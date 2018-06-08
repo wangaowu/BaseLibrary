@@ -1,4 +1,4 @@
-package com.yalantis.ucrop;
+package com.ucrop;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,8 +17,9 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.yalantis.ucrop.model.AspectRatio;
-import com.yalantis.ucrop.model.CutInfo;
+import com.picture.lib.BuildConfig;
+import com.ucrop.model.AspectRatio;
+import com.ucrop.model.CutInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -218,7 +219,7 @@ public class UCropMulti {
      * @return aspect ratio as a floating point value (x:y) - so it will be 1 for 1:1 or 4/3 for 4:3
      */
     public static float getOutputCropAspectRatio(@NonNull Intent intent) {
-        return intent.getParcelableExtra(EXTRA_OUTPUT_CROP_ASPECT_RATIO);
+        return intent.getFloatExtra(EXTRA_OUTPUT_CROP_ASPECT_RATIO, 0f);
     }
 
     /**

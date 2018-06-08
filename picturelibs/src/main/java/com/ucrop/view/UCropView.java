@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.view;
+package com.ucrop.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 
-import com.yalantis.ucrop.R;
-import com.yalantis.ucrop.callback.CropBoundsChangeListener;
-import com.yalantis.ucrop.callback.OverlayViewChangeListener;
+import com.picture.lib.R;
+import com.ucrop.callback.CropBoundsChangeListener;
+import com.ucrop.callback.OverlayViewChangeListener;
 
 public class UCropView extends FrameLayout {
 

@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.util;
+package com.ucrop.util;
 
 import android.annotation.TargetApi;
 import android.opengl.EGL14;

@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.model;
+package com.ucrop.model;
 
 /**
  * Created by Oleksii Shliama [https://github.com/shliama] on 6/21/16.

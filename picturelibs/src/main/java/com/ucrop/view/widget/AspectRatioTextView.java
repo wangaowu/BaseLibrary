@@ -1,5 +1,6 @@
-package com.yalantis.ucrop.view.widget;
+package com.ucrop.view.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -16,15 +17,16 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.yalantis.ucrop.R;
-import com.yalantis.ucrop.model.AspectRatio;
-import com.yalantis.ucrop.view.CropImageView;
+import com.picture.lib.R;
+import com.ucrop.model.AspectRatio;
+import com.ucrop.view.CropImageView;
 
 import java.util.Locale;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
+@SuppressLint("AppCompatCustomView")
 public class AspectRatioTextView extends TextView {
 
     private final Rect mCanvasClipBounds = new Rect();

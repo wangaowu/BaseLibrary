@@ -1,4 +1,4 @@
-package com.yalantis.ucrop.task;
+package com.ucrop.task;
 
 import android.Manifest.permission;
 import android.content.Context;
@@ -16,10 +16,10 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.yalantis.ucrop.callback.BitmapLoadCallback;
-import com.yalantis.ucrop.model.ExifInfo;
-import com.yalantis.ucrop.util.BitmapLoadUtils;
-import com.yalantis.ucrop.util.FileUtils;
+import com.ucrop.callback.BitmapLoadCallback;
+import com.ucrop.model.ExifInfo;
+import com.ucrop.util.BitmapLoadUtils;
+import com.ucrop.util.FileUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

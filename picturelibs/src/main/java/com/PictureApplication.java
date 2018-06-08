@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.request.RequestOptions;
-import com.luck.picture.lib.R;
+import com.picture.lib.R;
 
 public class PictureApplication extends Application {
 

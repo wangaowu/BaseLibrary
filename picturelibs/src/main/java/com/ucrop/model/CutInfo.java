@@ -1,11 +1,11 @@
-package com.yalantis.ucrop.model;
+package com.ucrop.model;
 
 import java.io.Serializable;
 
 /**
  * author：luck
  * project：PictureSelector
- * package：com.yalantis.ucrop.model
+ * package：com.ucrop.model
  * email：893855882@qq.com
  * data：2017/5/30
  */

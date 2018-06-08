@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yalantis.ucrop.util;
+package com.ucrop.util;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

@@ -1,6 +1,7 @@
 package com.unistrong.baselibs.utils;
 
 import android.util.Log;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,18 +12,20 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class AES {
 
-    /**加密
+    /**
+     * 加密
+     *
      * @throws Exception
      */
     public static String Encrypt(String sSrc, String sKey) throws Exception {
 
         if (sKey == null) {
-            Log.e("Key为空null","Key为空null");
+            Log.e("Key为空null", "Key为空null");
             return null;
         }
         // 判断Key是否为16位
         if (sKey.length() != 16) {
-            Log.e("\"Key长度不是16位\"","Key长度不是16位");
+            Log.e("\"Key长度不是16位\"", "Key长度不是16位");
             return null;
         }
         byte[] raw = sKey.getBytes();
@@ -32,7 +35,7 @@ public class AES {
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(sSrc.getBytes());
 
-        return Base64_2.encode(encrypted);//此处使用BASE64做转码功能，同时能起到2次加密的作用。
+        return new String(encrypted, "utf-8"); //此处使用BASE64做转码功能，同时能起到2次加密的作用。
     }
 
 
@@ -41,12 +44,12 @@ public class AES {
         try {
             // 判断Key是否正确
             if (sKey == null) {
-                Log.e("Key为空null","Key为空null");
+                Log.e("Key为空null", "Key为空null");
                 return null;
             }
             // 判断Key是否为16位
             if (sKey.length() != 16) {
-                Log.e("\"Key长度不是16位\"","Key长度不是16位");
+                Log.e("\"Key长度不是16位\"", "Key长度不是16位");
                 return null;
             }
             byte[] raw = sKey.getBytes("ASCII");
@@ -54,7 +57,7 @@ public class AES {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             IvParameterSpec iv = new IvParameterSpec("1234567890123456".getBytes());
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            byte[] encrypted1 = Base64_2.decode(sSrc);//先用base64解密
+            byte[] encrypted1 = sSrc.getBytes();
             try {
                 byte[] original = cipher.doFinal(encrypted1);
                 String originalString = new String(original);
