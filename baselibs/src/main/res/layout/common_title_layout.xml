@@ -4,6 +4,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/global_blue"
         android:tag="title">
         <!--22px为标识数据-->
 

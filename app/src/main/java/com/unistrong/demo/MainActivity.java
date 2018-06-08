@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
 //        String imagePath = "http://www.xinhuanet.com/world/2015-12/03/128496492_14491425659751n.jpg";
 //        Picasso.get().load(imagePath).into(iv);
 //        String serverUrl = "http://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_6.2.0.exe";
-//        MultiPartImpl.getInstance().downloadFile(serverUrl, path, new Handler(), new ResponseBody(Object.class) {
+//        MultiPartImpl.init().downloadFile(serverUrl, path, new Handler(), new ResponseBody(Object.class) {
 //            @Override
 //            public void onSuccess(Object json) {
 //            }

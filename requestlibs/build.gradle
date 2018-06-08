@@ -11,5 +11,4 @@ android {
 dependencies {
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.squareup.okio:okio:1.14.1'
-    api 'com.squareup.picasso:picasso:2.71828'
 }

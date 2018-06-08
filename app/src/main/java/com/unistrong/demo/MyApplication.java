@@ -1,7 +1,8 @@
 package com.unistrong.demo;
 
-import com.unistrong.baselibs.style.BaseApplication;
+import com.unistrong.baselibs.style.LogCrashApplication;
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends LogCrashApplication {
+
 
 }

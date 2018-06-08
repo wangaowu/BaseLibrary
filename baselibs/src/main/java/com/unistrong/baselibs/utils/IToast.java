@@ -10,6 +10,10 @@ public class IToast {
 
     private static Context context;
 
+    public static void init(Context context) {
+        IToast.context = context;
+    }
+
     private static Toast toast;
 
     public static void toast(String message) {
