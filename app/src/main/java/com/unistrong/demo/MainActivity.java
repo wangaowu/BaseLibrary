@@ -6,12 +6,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.auto_generate.local.PersonDao;
+import com.auto_generate.local.UserDao;
 import com.bumptech.glide.Glide;
+import com.greendao.GreenDaoUtils;
 import com.picture.lib.PictureSelector;
 import com.picture.lib.config.PictureConfig;
 import com.picture.lib.config.PictureMimeType;
 import com.picture.lib.entity.LocalMedia;
 import com.unistrong.baselibs.style.BaseActivity;
+import com.unistrong.demo.bean.Person;
+import com.unistrong.demo.bean.User;
+
+import org.greenrobot.greendao.AbstractDao;
 
 import java.util.List;
 
@@ -26,6 +33,19 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         viewById = findViewById(R.id.tv);
         iv = findViewById(R.id.iv);
+        testGreenDao();
+        PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
+        UserDao abstractDao = GreenDaoUtils.newXXdao(User.class);
+    }
+
+    private void testGreenDao() {
+        //  PersonDao personDao = GreenDaoUtils.getDaoSession().getPersonDao();
+
+//        Person person1 = new Person(1, "张三", 1, "20");
+//        personDao.insert(person1);
+
+        PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
+        personDao.insert(new Person(3, "王五", 0, "45"));
     }
 
     public void request(View view) {

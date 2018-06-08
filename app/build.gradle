@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // add greendao
 
 android {
     compileSdkVersion 27
@@ -23,7 +24,13 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':baselibs')
     api 'com.android.support:appcompat-v7:27.1.1'
     api 'com.android.support.constraint:constraint-layout:1.1.0'
-    api project(':baselibs')
+    api 'org.greenrobot:greendao:3.2.2' // add greendao
+}
+greendao {
+    schemaVersion 1
+    daoPackage 'com.auto_generate.local'
+    targetGenDir 'src/main/java'
 }
