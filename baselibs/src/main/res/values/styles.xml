@@ -15,7 +15,7 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="android:Theme">
         <item name="android:windowTitleSize">50dp</item>
-        <item name="android:windowTitleBackgroundStyle">@style/Title_bg</item>
+        <item name="android:windowTitleBackgroundStyle">@style/Title_Style</item>
     </style>
 
     <!-- Has no title theme. -->
@@ -152,5 +152,11 @@
     <style name="translucent_dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">@android:color/transparent</item> <!-- 设置自定义布局的背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- checkbox -->
+    <style name="rect_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_rect</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>
