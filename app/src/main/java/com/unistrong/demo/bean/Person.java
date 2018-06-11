@@ -7,9 +7,8 @@ import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
 public class Person {
-    @Id
-    public long id;
-
+    @Id(autoincrement = true)
+    public Long id;
     public String name;
     public int sex;
     public String age;
@@ -17,8 +16,8 @@ public class Person {
     @Transient
     public String temp;
 
-    @Generated(hash = 1948866780)
-    public Person(long id, String name, int sex, String age) {
+    @Generated(hash = 954044611)
+    public Person(Long id, String name, int sex, String age) {
         this.id = id;
         this.name = name;
         this.sex = sex;
@@ -29,11 +28,11 @@ public class Person {
     public Person() {
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,4 +59,5 @@ public class Person {
     public void setAge(String age) {
         this.age = age;
     }
+
 }

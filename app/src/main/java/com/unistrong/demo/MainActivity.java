@@ -42,13 +42,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private void testGreenDao() {
-        //  PersonDao personDao = GreenDaoUtils.getDaoSession().getPersonDao();
-
-//        Person person1 = new Person(1, "张三", 1, "20");
-//        personDao.insert(person1);
-
+        //增
         PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
-        personDao.insert(new Person(System.currentTimeMillis(), "王五", 0, "45"));
+        // personDao.insert(new Person(null, "王五", 0, "45"));
+        personDao.insert(new Person(null, "张三", 0, "20"));
+//        //查
+//        WhereCondition equals = PersonDao.Properties.Name.eq("张三");
+//        QueryBuilder<Person> builder = personDao.queryBuilder().where(equals);
+//        Query<Person> build = builder.build();
+//        List<Person> list = build.list();
+//        //改
+//        personDao.update(null);
+//        //删
+//        personDao.delete(null);
     }
 
     public void request(View view) {
