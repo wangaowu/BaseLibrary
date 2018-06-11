@@ -2,6 +2,7 @@ package com.unistrong.demo;
 
 import android.content.Intent;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,13 +13,13 @@ import com.bumptech.glide.Glide;
 import com.greendao.GreenDaoUtils;
 import com.picture.lib.PictureSelector;
 import com.picture.lib.config.PictureConfig;
-import com.picture.lib.config.PictureMimeType;
 import com.picture.lib.entity.LocalMedia;
 import com.unistrong.baselibs.style.BaseActivity;
+import com.unistrong.baselibs.ui.ProgressView;
 import com.unistrong.demo.bean.Person;
 import com.unistrong.demo.bean.User;
-
-import org.greenrobot.greendao.AbstractDao;
+import com.unistrong.requestlibs.request.MultiPartImpl;
+import com.unistrong.requestlibs.response.ResponseBody;
 
 import java.util.List;
 
@@ -27,12 +28,14 @@ public class MainActivity extends BaseActivity {
     private TextView viewById;
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath();
     private ImageView iv;
+    private ProgressView pb;
 
     @Override
     protected void initMvp() {
         setContentView(R.layout.activity_main);
         viewById = findViewById(R.id.tv);
         iv = findViewById(R.id.iv);
+        pb = findViewById(R.id.pb);
         testGreenDao();
         PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
         UserDao abstractDao = GreenDaoUtils.newXXdao(User.class);
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity {
 //        personDao.insert(person1);
 
         PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
-        personDao.insert(new Person(3, "王五", 0, "45"));
+        personDao.insert(new Person(System.currentTimeMillis(), "王五", 0, "45"));
     }
 
     public void request(View view) {
@@ -95,9 +98,29 @@ public class MainActivity extends BaseActivity {
 //            }
 //        });
 
-        //选择照片
-        PictureSelector.use(this).openGallery(PictureMimeType.TYPE_IMAGE())
-                .forResult(PictureConfig.CHOOSE_REQUEST);
+//        //选择照片
+//        PictureSelector.use(this).openGallery(PictureMimeType.TYPE_IMAGE())
+//                .forResult(PictureConfig.CHOOSE_REQUEST);
+
+        String serverPath = "https://dl.google.com/dl/android/studio/install/3.1.3.0/android-studio-ide-173.4819257-windows.exe";
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        MultiPartImpl.getInstance().downloadFile(serverPath, absolutePath, new Handler(), new ResponseBody(Object.class) {
+            @Override
+            public void onFailure(String message) {
+
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                super.onProgress(progress);
+                pb.setProgress(progress);
+            }
+
+            @Override
+            public void onSuccess(Object json) {
+
+            }
+        });
     }
 
     @Override
