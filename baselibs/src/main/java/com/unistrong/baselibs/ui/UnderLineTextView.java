@@ -13,13 +13,13 @@ import com.unistrong.baselibs.utils.DensityUtils;
 
 @SuppressLint("AppCompatCustomView")
 public class UnderLineTextView extends TextView {
-
+    private static final String TAG = "UnderLineTextView";
     private int width;
     private int height;
-    private boolean enableUnderLine;
-    private int padding_hor;
     private int underline_height;
+    private int horExtends;
 
+    private boolean enableUnderLine;
 
     public UnderLineTextView(Context context) {
         this(context, null);
@@ -35,8 +35,8 @@ public class UnderLineTextView extends TextView {
     }
 
     private void initUnderLineParams() {
-        padding_hor = DensityUtils.dp2px(getContext(), 20);
-        underline_height = DensityUtils.dp2px(getContext(), 5);
+        underline_height = DensityUtils.dp2px(getContext(), 3);
+        horExtends = DensityUtils.dp2px(getContext(), 10);
     }
 
     /**
@@ -54,10 +54,22 @@ public class UnderLineTextView extends TextView {
         super.dispatchDraw(canvas);
         Paint paint = getPaint();
         if (enableUnderLine) {
-            RectF rectF = new RectF(padding_hor, height - underline_height,
-                    width - padding_hor, height);
+            float horizontalPadding = calcHorizontalPadding(getTextWidth(paint) + 2 * horExtends, width);
+            float l = horizontalPadding;
+            int t = height - underline_height;
+            float r = width - horizontalPadding;
+            int b = this.height;
+            RectF rectF = new RectF(l, t, r, b);
             canvas.drawRect(rectF, paint);
         }
+    }
+
+    private float calcHorizontalPadding(float textWidth, int viewWidth) {
+        return (viewWidth - textWidth) * .5f;
+    }
+
+    private float getTextWidth(Paint paint) {
+        return paint.measureText(getText().toString());
     }
 
     @Override
