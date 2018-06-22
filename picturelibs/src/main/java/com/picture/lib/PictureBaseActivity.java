@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ public class PictureBaseActivity extends FragmentActivity {
     public void immersive() {
         ImmersiveManage.immersiveAboveAPI23(this
                 , colorPrimaryDark
-                , colorPrimary
+                , Color.BLACK
                 , openWhiteStatusBar);
     }
 
