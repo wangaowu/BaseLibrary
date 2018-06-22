@@ -44,6 +44,7 @@
         <activity android:name="com.ucrop.UCropActivity" />
         <activity android:name="com.ucrop.PictureMultiCuttingActivity" />
         <activity android:name=".PicturePlayAudioActivity" />
+        <activity android:name="com.picture.DisplayImageActivity" />
 
 
     </application>
