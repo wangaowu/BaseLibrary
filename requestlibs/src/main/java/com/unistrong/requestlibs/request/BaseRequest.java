@@ -27,7 +27,8 @@ import okhttp3.Response;
 public class BaseRequest extends BasePolicy {
     private static final String TAG = "BaseRequest";
 
-    private static final String HOST = "";
+    public static final String HOST = " ";//bj现网
+
     private Call call;
 
     protected void request_(final String action, int method, Object params, int timeout, long tag, final Handler handler, final ResponseBody listener) {
@@ -47,7 +48,7 @@ public class BaseRequest extends BasePolicy {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
-                    Log.e(actionTag(action), "Response Failed!");
+                    Log.e(actionTag(action), response.toString());
                     MainThread.runOnUIThread(handler, () -> listener.onFailure("Response Failed!"));
                     return;
                 }
@@ -114,6 +115,8 @@ public class BaseRequest extends BasePolicy {
     private Request buildGetRequest(String url, Object params, long tag) {
         Request.Builder requestBuilder = new Request.Builder().get().tag(tag);
         try {
+            richToken(requestBuilder);
+            richAppInfo(requestBuilder);
             String urlEncodedParam = getUrlEncodedParam(url, params);
             requestBuilder.url(url = url + "?" + urlEncodedParam);
         } catch (UnsupportedEncodingException e) {
@@ -133,7 +136,10 @@ public class BaseRequest extends BasePolicy {
      */
     private Request buildFormRequest(String url, Object params, long tag) {
         FormBody formBody = getFormBody(url, params);
-        return new Request.Builder().url(url).tag(tag).post(formBody).build();
+        Request.Builder builder = new Request.Builder().url(url).tag(tag).post(formBody);
+        richToken(builder);
+        richAppInfo(builder);
+        return builder.build();
     }
 
     /**
@@ -149,6 +155,8 @@ public class BaseRequest extends BasePolicy {
         Log.e(actionRequest(url), content);
         Request.Builder builder = new Request.Builder();
         builder.addHeader("Connection", "close");
+        richToken(builder);
+        richAppInfo(builder);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
                 content);
         return builder.url(url).tag(tag).post(requestBody).build();
