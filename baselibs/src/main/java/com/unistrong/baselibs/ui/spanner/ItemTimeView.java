@@ -96,8 +96,8 @@ public class ItemTimeView extends BaseItemView implements View.OnClickListener {
         String ymd = getCurrentYMD();
 
 //        selTimeDialog = new DateSelectDialog(activity, R.style.Dialog_Fullscreen);
-//        selTimeDialog.setOnFinishDateSelListener((y, m, d) -> {
-//            tvRight.setText(y + PREFIX + m + PREFIX + d);
+//        selTimeDialog.setOnFinishDateSelListener((yRatio, m, d) -> {
+//            tvRight.setText(yRatio + PREFIX + m + PREFIX + d);
 //            selTimeDialog.dismiss();
 //        });
 //        selTimeDialog.setOnClearDateSelListener(() -> {

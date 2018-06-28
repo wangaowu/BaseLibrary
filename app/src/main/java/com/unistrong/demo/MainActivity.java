@@ -4,41 +4,44 @@ import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.auto_generate.local.PersonDao;
-import com.auto_generate.local.UserDao;
-import com.bumptech.glide.Glide;
 import com.greendao.GreenDaoUtils;
-import com.picture.lib.PictureSelector;
-import com.picture.lib.config.PictureConfig;
-import com.picture.lib.entity.LocalMedia;
 import com.unistrong.baselibs.style.BaseActivity;
 import com.unistrong.baselibs.ui.ProgressView;
+import com.unistrong.baselibs.ui.chart.BaseMeasure;
+import com.unistrong.baselibs.ui.chart.PolyChartView;
 import com.unistrong.demo.bean.Person;
-import com.unistrong.demo.bean.User;
 import com.unistrong.requestlibs.request.MultiPartImpl;
 import com.unistrong.requestlibs.response.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
     private TextView viewById;
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private ImageView iv;
+    private PolyChartView iv;
     private ProgressView pb;
 
     @Override
     protected void initMvp() {
         setContentView(R.layout.activity_main);
-        viewById = findViewById(R.id.tv);
-        iv = findViewById(R.id.iv);
-        pb = findViewById(R.id.pb);
-        testGreenDao();
-        PersonDao personDao = GreenDaoUtils.newXXdao(Person.class);
-        UserDao abstractDao = GreenDaoUtils.newXXdao(User.class);
+        iv = findViewById(R.id.tv);
+        iv.setData(92, getdata());
+    }
+
+    private List<BaseMeasure.BindData> getdata() {
+        ArrayList<BaseMeasure.BindData> datas = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            BaseMeasure.BindData e = new BaseMeasure.BindData();
+            e.valueY = 4 * i;
+            e.flagX = "" + i;
+            datas.add(e);
+        }
+        return datas;
     }
 
     private void testGreenDao() {
@@ -132,16 +135,16 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case PictureConfig.CHOOSE_REQUEST:
-                // 图片、视频、音频选择结果回调
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(resultCode, data);
-                if (!selectList.isEmpty()) {
-                    String imagePath = selectList.get(0).getPath();
-                    Glide.with(MainActivity.this).load(imagePath).into(iv);
-                }
-                break;
-        }
+//        switch (requestCode) {
+//            case PictureConfig.CHOOSE_REQUEST:
+//                // 图片、视频、音频选择结果回调
+//                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(resultCode, data);
+//                if (!selectList.isEmpty()) {
+//                    String imagePath = selectList.get(0).getPath();
+//                    Glide.with(MainActivity.this).load(imagePath).into(iv);
+//                }
+//                break;
+//        }
     }
 
 }
