@@ -8,12 +8,15 @@ import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
+import com.unistrong.baselibs.R;
 import com.unistrong.baselibs.utils.DensityUtils;
 
 /**
  * 绘制折线图
  */
 public class PolyChartView extends BaseChart {
+    private static final int STROKE_WIDTH = 3;
+
     public PolyChartView(Context context) {
         super(context);
     }
@@ -29,17 +32,22 @@ public class PolyChartView extends BaseChart {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawPolyLines(canvas);//绘制折线
-        drawCircleRings(canvas);//绘制拐点
+        if (!measureComplete()) return;
+        //绘制折线
+        resetPaint();
+        drawPolyLines(canvas);
+        //绘制拐点
+        resetPaint();
+        drawCircleRings(canvas);
     }
 
     private void drawCircleRings(Canvas canvas) {
-        int outRadius = DensityUtils.dp2px(getContext(), 3);
-        int innerRadius = DensityUtils.dp2px(getContext(), 2);
+        int outRadius = DensityUtils.dp2px(getContext(), STROKE_WIDTH + 2);
+        int innerRadius = DensityUtils.dp2px(getContext(), STROKE_WIDTH);
         for (int i = 0; i < elementRectFs.size(); i++) {
             float centerX = elementRectFs.get(i).centerX();
             float top = elementRectFs.get(i).top;
-            paint.setColor(Color.BLUE);
+            paint.setColor(getContext().getResources().getColor(R.color.global_blue));
             canvas.drawCircle(centerX, top, outRadius, paint);
             paint.setColor(Color.WHITE);
             canvas.drawCircle(centerX, top, innerRadius, paint);
@@ -47,9 +55,10 @@ public class PolyChartView extends BaseChart {
     }
 
     private void drawPolyLines(Canvas canvas) {
-        int width = DensityUtils.dp2px(getContext(), 2);
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        int width = DensityUtils.dp2px(getContext(), STROKE_WIDTH);
+
+        paint.setColor(getContext().getResources().getColor(R.color.global_blue));
+        paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(width);
         canvas.drawPath(getPolyLinePath(), paint);
     }

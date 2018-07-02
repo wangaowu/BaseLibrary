@@ -50,37 +50,41 @@ public class BaseMeasure extends View {
         this.maxValue = invalidateMax(maxValue);
         for (int i = 0; i < datas.size(); i++) {
             BindData bindData = datas.get(i);
-            bindData.yRatio = bindData.valueY / maxValue;
+            bindData.yRatio = bindData.valueY / this.maxValue;
         }
         this.bindDatas = datas;
         scaleElementsRect();
+        postInvalidate();
+    }
+
+    protected boolean measureComplete() {
+        return chartRectF != null && bindDatas != null && !bindDatas.isEmpty();
     }
 
     /**
      * 取整最大值
      */
     private int invalidateMax(float maxValue) {
+        if (maxValue < 10) return 10;
         int step = (ANXIUS_Y_COUNT - 1) * 10;
         return (((int) maxValue) / step + 1) * step;
     }
 
     private void scaleElementsRect() {
         //没有数据or测量未完成
-        if (bindDatas.isEmpty() || chartRectF == null) return;
+        if (!measureComplete()) return;
         elementRectFs.clear();
         int xDistance = (viewWidth - paddingLeft - paddingRight) / bindDatas.size();
         int index = 0;
         for (BindData bindData : bindDatas) {
             float left = paddingLeft + index * xDistance;
-            float top = (1 - bindData.yRatio) * (viewHeight - 2 * paddingVertical);
-            float bottom = viewHeight - paddingVertical;
+            float top = (1 - bindData.yRatio) * (chartRectF.height()) + chartRectF.top;
+            float bottom = chartRectF.bottom;
             RectF elementRect = new RectF(left, top, left + xDistance, bottom);
             elementRectFs.add(elementRect);
             index++;
         }
-        postInvalidate();
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -92,8 +96,8 @@ public class BaseMeasure extends View {
     }
 
     private void initBounds() {
-        paddingLeft = DensityUtils.dp2px(getContext(), PADDING_LEFT);
-        paddingRight = DensityUtils.dp2px(getContext(), PADDING_RIGHT);
+        paddingLeft = DensityUtils.dp2px(getContext(), PADDING_LEFT) + getPaddingLeft();
+        paddingRight = DensityUtils.dp2px(getContext(), PADDING_RIGHT) + getPaddingRight();
         paddingVertical = DensityUtils.dp2px(getContext(), PADDING_VERTICAL);
         chartRectF = new RectF(paddingLeft, paddingVertical, viewWidth - paddingRight, viewHeight - paddingVertical);
     }
@@ -114,6 +118,17 @@ public class BaseMeasure extends View {
 
 
     public static class BindData {
+        /**
+         * 传入构造
+         *
+         * @param valueY 竖轴的值
+         * @param flagX  横轴的文字
+         */
+        public BindData(float valueY, String flagX) {
+            this.valueY = valueY;
+            this.flagX = flagX;
+        }
+
         public float x;
         public float yRatio;
         public float valueY;

@@ -34,11 +34,23 @@ public class BaseChart extends BaseMeasure {
         paint.setColor(Color.DKGRAY);
     }
 
+    protected void resetPaint() {
+        paint.reset();
+        paint.setAntiAlias(true);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
-        drawHorizontalBaseLine(canvas);//绘制水平基线
-        drawVerticalBaseFlag(canvas);//绘制垂直轴文字
-        drawHorizontalBaseFlag(canvas);//绘制水平轴文字
+        if (!measureComplete()) return;
+        //绘制水平基线
+        resetPaint();
+        drawHorizontalBaseLine(canvas);
+        //绘制垂直轴文字
+        resetPaint();
+        drawVerticalBaseFlag(canvas);
+        //绘制水平轴文字
+        resetPaint();
+        drawHorizontalBaseFlag(canvas);
     }
 
     private void drawHorizontalBaseFlag(Canvas canvas) {
@@ -47,6 +59,7 @@ public class BaseChart extends BaseMeasure {
         float baseLine = elementRectFs.get(0).bottom + paddingText + textSize;
 
         paint.setColor(Color.DKGRAY);
+        paint.setTextSize(textSize);
         paint.setTextAlign(Paint.Align.CENTER);
         for (int i = 0; i < elementRectFs.size(); i++) {
             float centerX = elementRectFs.get(i).centerX();
@@ -65,7 +78,7 @@ public class BaseChart extends BaseMeasure {
         paint.setColor(Color.DKGRAY);
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setTextSize(textSize);
-        for (int i = 0; i <= ANXIUS_Y_COUNT; i++) {
+        for (int i = 0; i < ANXIUS_Y_COUNT; i++) {
             String text = String.valueOf(yStepValue * (ANXIUS_Y_COUNT - 1 - i));
             float baseLine = chartRectF.top + yDistance * i + +textSize / 4;
             canvas.drawText(text, x, baseLine, paint);
@@ -77,8 +90,10 @@ public class BaseChart extends BaseMeasure {
         float startX = elementRectFs.get(0).left;
         float endX = elementRectFs.get(elementRectFs.size() - 1).right;
 
+        int textSize = DensityUtils.dp2px(getContext(), 14);
         paint.setColor(Color.LTGRAY);
-        for (int i = 0; i <= ANXIUS_Y_COUNT; i++) {
+        paint.setTextSize(textSize);
+        for (int i = 0; i < ANXIUS_Y_COUNT; i++) {
             float startY = chartRectF.top + yDistance * i;
             canvas.drawLine(startX, startY, endX, startY, paint);
         }
