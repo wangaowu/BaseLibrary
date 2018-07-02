@@ -3,7 +3,9 @@ package com.unistrong.baselibs.ui.chart;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
@@ -50,22 +52,27 @@ public class BaseChart extends BaseMeasure {
         drawVerticalBaseFlag(canvas);
         //绘制水平轴文字
         resetPaint();
-        drawHorizontalBaseFlag(canvas);
+        int dynamicStep = drawHorizontalBaseFlag(canvas);
+        //绘制数据的指示线
+        resetPaint();
+        drawDataIndicatorLines(canvas, dynamicStep);
     }
 
-    private void drawHorizontalBaseFlag(Canvas canvas) {
+    private int drawHorizontalBaseFlag(Canvas canvas) {
         int textSize = DensityUtils.dp2px(getContext(), 14);
         int paddingText = DensityUtils.dp2px(getContext(), 5);
         float baseLine = elementRectFs.get(0).bottom + paddingText + textSize;
 
-        paint.setColor(Color.DKGRAY);
         paint.setTextSize(textSize);
+        int dynamicStep = getDynamicStep(paint, "1970-00-00");
+        paint.setColor(Color.DKGRAY);
         paint.setTextAlign(Paint.Align.CENTER);
-        for (int i = 0; i < elementRectFs.size(); i++) {
+        for (int i = 0; i < elementRectFs.size(); i += dynamicStep) {
             float centerX = elementRectFs.get(i).centerX();
             String text = bindDatas.get(i).flagX;
             canvas.drawText(text, centerX, baseLine, paint);
         }
+        return dynamicStep;
     }
 
     private void drawVerticalBaseFlag(Canvas canvas) {
@@ -96,6 +103,18 @@ public class BaseChart extends BaseMeasure {
         for (int i = 0; i < ANXIUS_Y_COUNT; i++) {
             float startY = chartRectF.top + yDistance * i;
             canvas.drawLine(startX, startY, endX, startY, paint);
+        }
+    }
+
+    private void drawDataIndicatorLines(Canvas canvas, int dynamicStep) {
+        paint.setColor(Color.LTGRAY);
+        paint.setStrokeWidth(1);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setPathEffect(new DashPathEffect(new float[]{4f, 4f}, 4f));
+        for (int i = 0; i < elementRectFs.size(); i += dynamicStep) {
+            RectF elementRect = elementRectFs.get(i);
+            float centerX = elementRect.centerX();
+            canvas.drawLine(centerX, elementRect.top, centerX, elementRect.bottom, paint);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.unistrong.baselibs.ui.chart;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -114,6 +115,20 @@ public class BaseMeasure extends View {
                 break;
         }
         return size;
+    }
+
+    protected int getDynamicStep(Paint paint, String measureText) {
+        float textWidth = paint.measureText(measureText);
+        int horPadding = DensityUtils.dp2px(getContext(), 8);
+        textWidth = textWidth + 2 * horPadding;
+        float count;
+        if (textWidth > PADDING_LEFT) {
+            //文字宽度>左间距,用控件尺寸计算
+            count = viewWidth / textWidth;
+        } else {
+            count = chartRectF.width() / textWidth;
+        }
+        return (int) (elementRectFs.size() / count) + 1;
     }
 
 
