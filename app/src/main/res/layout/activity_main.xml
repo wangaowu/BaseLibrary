@@ -5,10 +5,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.unistrong.baselibs.ui.chart.PolyChartView
+    <TextView
         android:id="@+id/tv"
         android:layout_width="300dp"
-        android:layout_height="200dp" />
-
+        android:layout_height="200dp"
+        android:background="@android:drawable/gallery_thumb"
+        android:gravity="center"
+        android:text="TEST" />
 
 </LinearLayout>

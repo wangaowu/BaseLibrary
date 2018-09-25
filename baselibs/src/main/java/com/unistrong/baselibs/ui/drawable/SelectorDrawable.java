@@ -2,10 +2,13 @@ package com.unistrong.baselibs.ui.drawable;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -22,6 +25,15 @@ public class SelectorDrawable extends StateListDrawable {
 
     public enum ShapeType {
         ROUND_RECT, OVAL, NONE
+    }
+
+    public static Drawable createRipple(Drawable content, int rippleColor) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ColorStateList colorStateList = ColorStateList.valueOf(Color.WHITE);
+            return new RippleDrawable(colorStateList,
+                    content, null);//new ColorDrawable(rippleColor)
+        }
+        return content;
     }
 
     public SelectorDrawable(int normalResID, int pressedResID, Context context) {
@@ -60,7 +72,7 @@ public class SelectorDrawable extends StateListDrawable {
     }
 
     @SuppressLint("NewApi")
-    private Drawable createShapeDrawable(int color, ShapeType shapeType, Context context) {
+    public Drawable createShapeDrawable(int color, ShapeType shapeType, Context context) {
         Shape shape;
         float[] radius = initRadius(context);
         switch (shapeType) {
