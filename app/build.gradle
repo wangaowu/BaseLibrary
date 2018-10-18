@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // add greendao
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.unistrong.demo"
         minSdkVersion 21
