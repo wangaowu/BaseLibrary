@@ -76,9 +76,7 @@ public class MainActivity extends BaseActivity {
 
     private void test() {
         sp.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, buildArrays()));
-
         //插值器进阶
-
     }
 
     @NonNull

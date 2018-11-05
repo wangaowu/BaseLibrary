@@ -36,7 +36,7 @@ dependencies {
     api 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.3' //add greendao upgrade
 
     //添加分页库
-   // api "android.arch.paging:runtime:1.0.0"
+    api "android.arch.paging:runtime:1.0.0"
 }
 greendao {
     schemaVersion 2  //数据库的版本号
