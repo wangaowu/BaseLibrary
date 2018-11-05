@@ -31,8 +31,7 @@ public class MainActivity extends BaseActivity {
         sp = findViewById(R.id.sp_test);
         tvMsg = findViewById(R.id.tv_msg);
         ivFinger = findViewById(R.id.iv_finger);
-        demoView = findViewById(R.id.demo_view);
-        ivGif = findViewById(R.id.iv_gif);
+//        demoView = findViewById(R.id.demo_view);
         tvMsg.setText("test_JNI_method");
         tvMsg.setOnClickListener(v -> {
             click();
@@ -55,17 +54,11 @@ public class MainActivity extends BaseActivity {
                 }
             });
         });
+        ivGif = findViewById(R.id.iv_gif);
+        testGifAPI();
     }
 
-    private void click() {
-        tvMsg.setText(Sample1.stringMethod());
-        //      tvMsg.setText(String.valueOf(Sample1.intMethod()));
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void testGifAPI() {
         try {
             AnimatedImageDrawable animDrawable = (AnimatedImageDrawable) ImageDecoder.decodeDrawable(
                     ImageDecoder.createSource(getResources(), R.drawable.aaa));
@@ -74,6 +67,11 @@ public class MainActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void click() {
+        tvMsg.setText(Sample1.stringMethod());
+        //      tvMsg.setText(String.valueOf(Sample1.intMethod()));
     }
 
     private void test() {
